@@ -1,4 +1,4 @@
-import os
+import asyncio
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -6,7 +6,7 @@ from telegram.ext import (
     ContextTypes,
 )
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = "8821858157:AAHCDZBqmHtUC1PvJJw4gD4XPQzdRUsGYoU"
 
 async def approve(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
@@ -15,9 +15,19 @@ async def approve(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         print(e)
 
-app = Application.builder().token(BOT_TOKEN).build()
+async def main():
+    app = Application.builder().token(BOT_TOKEN).build()
 
-app.add_handler(ChatJoinRequestHandler(approve))
+    app.add_handler(ChatJoinRequestHandler(approve))
 
-print("Auto Approve Bot Running...")
-app.run_polling()
+    print("Auto Approve Bot Running...")
+
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+
+    while True:
+        await asyncio.sleep(3600)
+
+if __name__ == "__main__":
+    asyncio.run(main())
