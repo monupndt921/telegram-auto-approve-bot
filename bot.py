@@ -1,3 +1,4 @@
+import os
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -5,7 +6,7 @@ from telegram.ext import (
     ContextTypes,
 )
 
-BOT_TOKEN = "8821858157:AAHCDZBqmHtUC1PvJJw4gD4XPQzdRUsGYoU"
+BOT_TOKEN = os.getenv("8821858157:AAHCDZBqmHtUC1PvJJw4gD4XPQzdRUsGYoU")
 
 async def approve(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
